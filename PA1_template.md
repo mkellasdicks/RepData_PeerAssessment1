@@ -112,8 +112,31 @@ plot(g)
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
-Mean Number of Steps per Day: 1.0766189 &times; 10<sup>4</sup>.  
-Median Number of Steps per Day: 1.0765 &times; 10<sup>4</sup>.
+Mean Number of Steps per Day:
+
+```r
+meanStepsFmtd <- format(meanSteps1, format = "f", big.mark=",", digits = 2)
+meanStepsFmtd
+```
+
+```
+## [1] "10,766"
+```
+
+Median Number of Steps per Day:
+
+```r
+medianStepsFmtd <- format(medianSteps1, format = "f", big.mark=",", digits = 2)
+medianStepsFmtd
+```
+
+```
+##      50% 
+## "10,765"
+```
+
+Mean Number of Steps per Day: 10,766.  
+Median Number of Steps per Day: 10,765.
 
 Note that Mean and Median are very close, so only one line is visible in the graph.
 
@@ -141,7 +164,7 @@ plot(dfStepsByTimeInterval,
      ylab = "Average Number of Steps (Across All Days)")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
 
 **Problem 3.2**:
@@ -185,7 +208,18 @@ naRows
 ## [1] 2304
 ```
 
-**Answer:** 2304 rows out of 17568 rows have missing values ("NA")
+```r
+naProportion <- naRows * 1.0 / origRows * 100 # these are percent
+naProportionFormatted <- paste(format(x = naProportion, digits = 2), "%", sep = "")
+naProportionFormatted
+```
+
+```
+## [1] "13%"
+```
+
+**Answer:** 2304 rows out of 17568 rows have missing values ("NA"). 
+This is a proportion of 13%.
 
 **Problem 4.2:** Devise a strategy for filling in all of the missing values in the dataset. 
 The strategy does not need to be sophisticated. For example, you could use the 
@@ -193,10 +227,10 @@ mean/median for that day, or the mean for that 5-minute interval, etc.
 
 **Answer:** The strategy is the following:
 
-For every point in time where steps = NA:
-We replace the steps with the average number of steps 
-for that same interval in time 
-averaging across all days where this interval has non-NA steps.
+For data point where steps = NA:  
++ We take the data points time interval ('interval')
++ We look up the average steps at that time interval, in the time series above
++ we replace 'NA' with that average number of steps
 
 **Code:**
 
@@ -204,7 +238,12 @@ averaging across all days where this interval has non-NA steps.
 ```r
 # a function to calculate the default value for steps, by time interval
 defaultSteps <- function(interval) {
+    # in the time series of average steps per interval
+    # find the interval that matches 'interval' in the function input
     matchedIndex <- match(interval, dfStepsByTimeInterval$interval)
+    
+    # return the average number of steps from the time series
+    # at that time interval
     matchedSteps <- dfStepsByTimeInterval$steps[matchedIndex]
     matchedSteps
 }
@@ -278,23 +317,63 @@ g2 <- g2 + scale_colour_manual(name = "Stats",
 plot(g2)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+
+Mean Number of Steps per Day:
+
+```r
+meanStepsFmtd2 <- format(meanSteps2, format = "f", big.mark=",", digits = 2)
+meanStepsFmtd2
+```
+
+```
+## [1] "10,766"
+```
+
+Median Number of Steps per Day:
+
+```r
+medianStepsFmtd2 <- format(medianSteps2, format = "f", big.mark=",", digits = 2)
+medianStepsFmtd2
+```
+
+```
+##      50% 
+## "10,766"
+```
 
 
-Mean Number of Steps per Day: 1.0766189 &times; 10<sup>4</sup>.  
-Median Number of Steps per Day: 1.0766189 &times; 10<sup>4</sup>.
+Mean Number of Steps per Day: 10,766.  
+Median Number of Steps per Day: 10,766.
 
 Note that the computed values for Mean and Median are virtually identical, 
 so only one line is visible in the plot.
 
 **Comparison to Calculation that removed NA's**
 
-Mean Number of Steps per Day (NA removed): 1.0766189 &times; 10<sup>4</sup>.  
-Median Number of Steps per Day (NA removed): 1.0765 &times; 10<sup>4</sup>.
+Mean Number of Steps per Day (NA removed): 10,766.  
+Median Number of Steps per Day (NA removed): 10,765.
 
 The results for "NAs removed" are very close to the results for "NAs implied".  
 At least with the method chosen (steps for NAs are implied by mean of steps 
 for same interval in time)
+
+**Why is there virtually no change, when imputing values?**  
+
+The reason is, that in this dataset:  
+For each day in the 2 months, all intervals have either steps = NA, or steps not NA.  
+There is no day with some intervals having steps, and other intervals not having steps.
+
+This means:
+
+* non-NA days have nothing replaced, for no interval, so they keep each step, 
+and they keep the same number of total steps
+* NA days are completely imputed, for every interval. this means, for every interval 
+they get the average number of steps. The total sum of steps will also be the 
+average number of steps of all days.
+
+This means, when expanding the non-NA days with the NA days, the mean doesn't change.
+The median does change, and it would move closer to the mean.
 
 ##5. Are there Differences in Activity Patterns - Weekdays vs. Weekends
 
@@ -355,7 +434,7 @@ plot(x = weekendSteps$interval,
      ylim = yplotRange)
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png) 
 
 **Conclusion:**
 
