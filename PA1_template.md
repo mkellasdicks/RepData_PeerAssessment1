@@ -110,7 +110,7 @@ g <- g + scale_colour_manual(name = "Stats",
 plot(g)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+![plot of chunk stepsByDay_Plot](figure/stepsByDay_Plot-1.png) 
 
 Mean Number of Steps per Day:
 
@@ -164,7 +164,7 @@ plot(dfStepsByTimeInterval,
      ylab = "Average Number of Steps (Across All Days)")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+![plot of chunk DailyPattern_TimeSeries](figure/DailyPattern_TimeSeries-1.png) 
 
 
 **Problem 3.2**:
@@ -317,7 +317,7 @@ g2 <- g2 + scale_colour_manual(name = "Stats",
 plot(g2)
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+![plot of chunk ImputingValues_ModifiedData_Plot](figure/ImputingValues_ModifiedData_Plot-1.png) 
 
 Mean Number of Steps per Day:
 
@@ -434,7 +434,7 @@ plot(x = weekendSteps$interval,
      ylim = yplotRange)
 ```
 
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png) 
+![plot of chunk WeekdayPatterns_Plot](figure/WeekdayPatterns_Plot-1.png) 
 
 **Conclusion:**
 

@@ -17,7 +17,7 @@ Show any Code that is needed to load the data
 
 **Code**
 
-```{r, echo = TRUE, warning=FALSE}
+```{r loadingAndPP_1, echo = TRUE, warning=FALSE}
 
 ## Read Source Data
 sourcefile <- "activity.csv"
@@ -29,7 +29,7 @@ df <- read.csv(sourcefile)
 
 Process/transform the data (if necessary) into a format suitable for analysis
 
-```{r, echo = TRUE, warning=FALSE}
+```{r loadingAndPP_2, echo = TRUE, warning=FALSE}
 
 # make 'date' the column in date format, move date strings to column 'dateString'
 df$dateString <- df$date
@@ -55,7 +55,7 @@ Missing values in the dataset can be ignored (as per instruction)
 
 **Code**
 
-```{r, echo = TRUE, warning=FALSE}
+```{r stepsByDay_Code, echo = TRUE, warning=FALSE}
 
 ###########################################################
 ##
@@ -108,20 +108,20 @@ g <- g + scale_colour_manual(name = "Stats",
 
 **Plot and Results**
 
-```{r, echo = TRUE, warning=FALSE, fig.width=10}
+```{r stepsByDay_Plot, echo = TRUE, warning=FALSE, fig.width=10}
 
 plot(g)
 
 ```
 
 Mean Number of Steps per Day:
-```{r}
+```{r stepsByDay_Calc1}
 meanStepsFmtd <- format(meanSteps1, format = "f", big.mark=",", digits = 2)
 meanStepsFmtd
 ```
 
 Median Number of Steps per Day:
-```{r}
+```{r stepsByDay_Calc2}
 medianStepsFmtd <- format(medianSteps1, format = "f", big.mark=",", digits = 2)
 medianStepsFmtd
 ```
@@ -143,7 +143,7 @@ and the average number of steps taken, averaged across all days (y-axis)
 **Code and Plot**:
 
 
-```{r, echo=TRUE, fig.width = 10.0, fig.height = 6.0}
+```{r DailyPattern_TimeSeries, echo=TRUE, fig.width = 10.0, fig.height = 6.0}
 
 library(reshape2)
 dfMelt <- melt(dfComplete, id = "interval", measure.vars = "steps")
@@ -164,7 +164,7 @@ in the dataset, contains the maximum number of steps?
 
 **Code**:
   
-```{r}
+```{r DailyPattern_MaxInterval, echo=TRUE}
 
 indexOfMax <- which.max(dfStepsByTimeInterval$steps)
 timeIntervalWithMaxSteps <- dfStepsByTimeInterval$interval[indexOfMax]
@@ -183,7 +183,7 @@ calculations or summaries of the data.
 
 **Problem 4.1:** Total Number of rows with missing values ("NA")
 
-```{r}
+```{r ImputingValues_MissingRows}
 
 origRows <- nrow(df)
 completeRows <- nrow(dfComplete)
@@ -212,7 +212,7 @@ For data point where steps = NA:
 
 **Code:**
 
-```{r, echo = TRUE, warning=FALSE}
+```{r ImputingValues_Algorithm, echo = TRUE, warning=FALSE}
 
 # a function to calculate the default value for steps, by time interval
 defaultSteps <- function(interval) {
@@ -232,7 +232,7 @@ defaultSteps <- function(interval) {
 **Problem 4.3:** Create a new dataset that is equal to the original 
 dataset but with the missing data filled in.
 
-```{r, echo = TRUE, warning=FALSE}
+```{r ImputingValues_ModifiedData, echo = TRUE, warning=FALSE}
 
 # add two vectors to data frame:
 # - defaultSteps: The default steps for each time interval in the data frame
@@ -250,7 +250,7 @@ dfNew <- data.frame(steps = df$cleanedSteps, date = df$date, interval = df$inter
 
 Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r, echo = TRUE, warning=FALSE}
+```{r ImputingValues_ModifiedData_Code, echo = TRUE, warning=FALSE}
 
 # make the plot, using the data with NA's imputed ('dfNew')
 
@@ -266,7 +266,7 @@ linesDf2 <- data.frame(date = dfStepsByDate2$date,
 
 ```
 
-```{r, echo = TRUE, warning=FALSE, fig.width = 10}
+```{r ImputingValues_ModifiedData_Plot, echo = TRUE, warning=FALSE, fig.width = 10}
 
 # Plot histogram
 
@@ -300,13 +300,13 @@ plot(g2)
 ```
 
 Mean Number of Steps per Day:
-```{r}
+```{r ImputedData_Calc1}
 meanStepsFmtd2 <- format(meanSteps2, format = "f", big.mark=",", digits = 2)
 meanStepsFmtd2
 ```
 
 Median Number of Steps per Day:
-```{r}
+```{r ImputedData_Calc2}
 medianStepsFmtd2 <- format(medianSteps2, format = "f", big.mark=",", digits = 2)
 medianStepsFmtd2
 ```
@@ -356,7 +356,7 @@ Use the dataset with the filled-in missing values for this part.
 
 **Code:**
 
-```{r}
+```{r WeekdayPatterns_Code}
 
 isWeekday <- function(x) {
     xIsWeekday <- weekdays(as.Date(x), abbreviate = TRUE) %in% c("Mon", "Tue", "Wed", "Thu", "Fri")
@@ -374,7 +374,7 @@ weekendSteps <- dfStepsByTimeInterval3[dfStepsByTimeInterval3$isWeekday == FALSE
 
 **Plot:**
 
-```{r, echo=TRUE, fig.height = 12.0, fig.width = 10.0}
+```{r WeekdayPatterns_Plot, echo=TRUE, fig.height = 12.0, fig.width = 10.0}
 # dimensions:
 # Height = 12.0 - this is 12 inches. Values: Numeric, with decimal!
 # Width = 10.0 - this is 10 inches, a bit wider than the default to accommodate time series
