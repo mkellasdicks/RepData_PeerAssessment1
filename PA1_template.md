@@ -1,6 +1,11 @@
-# Reproducible Research: Peer Assignment 1
-MKD  
-Sat, October 18, 2014  
+---
+title: "Reproducible Research: Peer Assignment 1"
+author: "MKD"
+date: "Sat, October 18, 2014"
+output:
+    html_document:
+        keep_md: true
+---
 
 ##1. Loading and Preprocessing the Data
 
@@ -105,10 +110,10 @@ g <- g + scale_colour_manual(name = "Stats",
 plot(g)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
-Mean Number of Steps per Day: 1.0766189\times 10^{4}.  
-Median Number of Steps per Day: 1.0765\times 10^{4}.
+Mean Number of Steps per Day: 1.0766189 &times; 10<sup>4</sup>.  
+Median Number of Steps per Day: 1.0765 &times; 10<sup>4</sup>.
 
 Note that Mean and Median are very close, so only one line is visible in the graph.
 
@@ -136,7 +141,7 @@ plot(dfStepsByTimeInterval,
      ylab = "Average Number of Steps (Across All Days)")
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 
 **Problem 3.2**:
@@ -273,19 +278,19 @@ g2 <- g2 + scale_colour_manual(name = "Stats",
 plot(g2)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
 
 
-Mean Number of Steps per Day: 1.0766189\times 10^{4}.  
-Median Number of Steps per Day: 1.0766189\times 10^{4}.
+Mean Number of Steps per Day: 1.0766189 &times; 10<sup>4</sup>.  
+Median Number of Steps per Day: 1.0766189 &times; 10<sup>4</sup>.
 
 Note that the computed values for Mean and Median are virtually identical, 
 so only one line is visible in the plot.
 
 **Comparison to Calculation that removed NA's**
 
-Mean Number of Steps per Day (NA removed): 1.0766189\times 10^{4}.  
-Median Number of Steps per Day (NA removed): 1.0765\times 10^{4}.
+Mean Number of Steps per Day (NA removed): 1.0766189 &times; 10<sup>4</sup>.  
+Median Number of Steps per Day (NA removed): 1.0765 &times; 10<sup>4</sup>.
 
 The results for "NAs removed" are very close to the results for "NAs implied".  
 At least with the method chosen (steps for NAs are implied by mean of steps 
@@ -350,7 +355,7 @@ plot(x = weekendSteps$interval,
      ylim = yplotRange)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
 
 **Conclusion:**
 
